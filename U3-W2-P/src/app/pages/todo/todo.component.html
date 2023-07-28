@@ -1,0 +1,31 @@
+<div class="caricamento" *ngIf="!(taskList | async)">
+  <img src="https://i.gifer.com/ZKZg.gif" />
+  <p>Caricamento dei task in corso...</p>
+</div>
+<div class="tasks">
+  <ul>
+    <div *ngFor="let task of taskList | async">
+      <li *ngIf="!task.completed">
+        <a title="Elimina Task" (click)="srvTodo.deleteTask(task.id)" href="/">
+          👎🏼
+        </a>
+        <a
+          title="Modifica Task"
+          (click)="srvTodo.putTask(task.id, task.title, task.completed)"
+          href="/"
+        >
+          🛠
+        </a>
+        <a
+          title="Completa Task"
+          (click)="srvTodo.putTask(task.id, task.title, true)"
+          href="/"
+        >
+          📝
+        </a>
+        <input class="test" type="text" [(ngModel)]="task.title" />
+      </li>
+      <hr *ngIf="!task.completed" />
+    </div>
+  </ul>
+</div>
